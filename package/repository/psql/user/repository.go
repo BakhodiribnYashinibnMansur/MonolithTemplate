@@ -132,25 +132,5 @@ func NewUserRepo(db *sqlx.DB, loggers *logger.Logger) *UserRepo {
 			UserReader: NewUserReaderDB(db, loggers),
 			UserWriter: NewUserWriterDB(db, loggers),
 		},
-		Manager: Manager{
-			ManagerReader: NewManagerReaderDB(db, loggers),
-			ManagerWriter: NewManagerWriterDB(db, loggers),
-		},
-		Teacher: Teacher{
-			TeacherReader: NewTeacherReaderDB(db, loggers),
-			TeacherWriter: NewTeacherWriterDB(db, loggers),
-		},
-		Student: Student{
-			StudentReader: NewStudentReaderDB(db, loggers),
-			StudentWriter: NewStudentWriterDB(db, loggers),
-		},
-		Employee: Employee{
-			EmployeeReader: NewEmployeeReaderDB(db, loggers),
-			EmployeeWriter: NewEmployeeWriterDB(db, loggers),
-		},
-		StudentData: StudentData{
-			StudentDataReader: NewStudentDataReaderDB(db, loggers),
-			StudentDataWriter: NewStudentDataWriterDB(db, loggers),
-		},
 	}
 }

@@ -41,3 +41,7 @@ ifneq (,$(wildcard vendor))
 	go mod vendor
 endif
 .PHONY: vendor
+
+.PHONY: sqlc
+sqlc:
+	sqlc generate

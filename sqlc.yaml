@@ -117,12 +117,12 @@ overrides:
         nullable: true
 sql:
   - engine: "postgresql"
-    queries: "./internal/core/repository/psql/query"
+    queries: "./package/repository/psql/sqlc/query"
     schema: "./schema"
     gen:
       go:
         package: "sqlc"
-        out: "./package/repository/sqlc"
+        out: "./package/repository/psql/sqlc/gen"
         sql_package: "pgx/v4"
         emit_interface: true
         emit_json_tags: true

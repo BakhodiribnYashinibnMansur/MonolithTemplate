@@ -5,6 +5,8 @@ import (
 	"EduCRM/cronjobs"
 	"EduCRM/package/handler"
 	"EduCRM/package/repository"
+	"EduCRM/package/repository/psql"
+	"EduCRM/package/repository/psql/migration"
 	"EduCRM/package/service"
 	"EduCRM/package/store"
 	"EduCRM/server"
@@ -30,11 +32,11 @@ func main() {
 	loggers := logger.GetLogger()
 	cfg := config.Config()
 	// Migration Up
-	err := repository.MigratePsql(cfg.Postgres, loggers, true)
+	err := migration.MigratePsql(cfg.Postgres, loggers, true)
 	if err != nil {
-		loggers.Fatal("error while migrate up", err)
+		loggers.Error("error while migrate up", err)
 	}
-	db, err := repository.NewPostgresDB(&cfg.Postgres, loggers)
+	db, err := psql.NewPostgresDB(&cfg.Postgres, loggers)
 	if err != nil {
 		loggers.Fatalf("failed to initialize db: %s", err.Error())
 		panic(err)

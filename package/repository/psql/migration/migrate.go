@@ -1,4 +1,4 @@
-package repository
+package migration
 
 import (
 	"EduCRM/config"

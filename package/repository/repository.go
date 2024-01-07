@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"EduCRM/package/repository/user"
+	"EduCRM/package/repository/psql/user"
 	"EduCRM/tools/logger"
 
 	"github.com/jmoiron/sqlx"

@@ -1,0 +1,20 @@
+version: '3'
+services:
+  app:
+    container_name: edu_crm_backend_dev
+    image: registry.gitlab.com/1itech_company_uz/internal/edu_crm/edu_crm_backend:staging
+    ports: 
+      - 5050:9090 
+    restart: on-failure
+    env_file: .env #/var/www/.crm.env.test
+    labels:
+      logging: "promtail"
+      logging_jobname: "containerlogs"
+    networks:
+      mynet: {}
+
+
+networks:
+  mynet:
+    external: true
+    name: crm-network

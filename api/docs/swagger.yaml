@@ -1,0 +1,524 @@
+definitions:
+  model.CreateUser:
+    properties:
+      addedDate:
+        type: string
+      birthdayDate:
+        type: string
+      fullName:
+        type: string
+      password:
+        type: string
+      phoneNumber:
+        type: string
+      photo:
+        type: string
+      roleID:
+        type: string
+      roleTitle:
+        type: string
+    type: object
+  model.SignInUser:
+    properties:
+      password:
+        default: EduCRM$007Boss
+        type: string
+      phoneNumber:
+        default: "+998901234567"
+        type: string
+    type: object
+  model.UpdateUser:
+    properties:
+      addedDate:
+        type: string
+      birthdayDate:
+        type: string
+      fullName:
+        type: string
+      phoneNumber:
+        type: string
+      photo:
+        type: string
+      roleID:
+        type: string
+      roleTitle:
+        type: string
+    type: object
+  model.UserPassword:
+    properties:
+      password:
+        type: string
+    type: object
+  response.ResponseModel:
+    properties:
+      code:
+        type: integer
+      description:
+        type: string
+      error:
+        type: string
+      snapData: {}
+      status:
+        type: string
+    type: object
+host: gitlab.com/edu-crm
+info:
+  contact:
+    email: phapp0224mb@gmail.com
+    name: Bakhodir Yashin Mansur
+  description: API Server for EduCRM Application
+  termsOfService: gitlab.com/edu-crm
+  title: EduCRM
+  version: "1.0"
+paths:
+  /api/v1/download/{file-path}:
+    post:
+      consumes:
+      - application/json
+      - application/json
+      description: Download Image
+      parameters:
+      - description: file path
+        in: path
+        name: file-path
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Minio
+  /api/v1/minio/upload-doc:
+    post:
+      consumes:
+      - application/json
+      - multipart/form-data
+      description: Upload doc
+      parameters:
+      - description: file
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/octet-stream
+      - application/msword
+      - application/vnd.openxmlformats-officedocument.wordprocessingml.document
+      - image/jpg
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Minio
+  /api/v1/minio/upload-image:
+    post:
+      consumes:
+      - application/json
+      - multipart/form-data
+      description: Upload Image
+      parameters:
+      - description: file
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/octet-stream
+      - image/png
+      - image/jpeg
+      - image/jpg
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Minio
+  /api/v1/minio/upload-images:
+    post:
+      consumes:
+      - application/json
+      - multipart/form-data
+      description: Upload Images
+      parameters:
+      - description: files
+        in: formData
+        name: files
+        required: true
+        type: file
+      produces:
+      - application/octet-stream
+      - image/png
+      - image/jpeg
+      - image/jpg
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Minio
+  /api/v1/user/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get User
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      summary: Get User
+      tags:
+      - User
+  /api/v1/user/create:
+    post:
+      consumes:
+      - application/json
+      description: Create User
+      parameters:
+      - description: Create User
+        in: body
+        name: create
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreateUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      summary: Create User
+      tags:
+      - User
+  /api/v1/user/delete/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete User
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete User
+      tags:
+      - User
+  /api/v1/user/list:
+    get:
+      consumes:
+      - application/json
+      description: Get User List
+      parameters:
+      - default: 10
+        description: pageSize
+        in: query
+        name: pageSize
+        required: true
+        type: integer
+      - default: 1
+        description: page
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 'Role : all.  get all user'
+        in: query
+        name: role
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      summary: Get User List
+      tags:
+      - User
+  /api/v1/user/me:
+    get:
+      consumes:
+      - application/json
+      description: User Me
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      summary: User Me
+      tags:
+      - User
+  /api/v1/user/sign-in:
+    post:
+      consumes:
+      - application/json
+      description: Admin Sign In  User.
+      parameters:
+      - description: Sign In
+        in: body
+        name: signup
+        required: true
+        schema:
+          $ref: '#/definitions/model.SignInUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+      summary: Admin Sign In User
+      tags:
+      - User
+  /api/v1/user/update-password/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Update User Password
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: password
+        in: body
+        name: password
+        required: true
+        schema:
+          $ref: '#/definitions/model.UserPassword'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      summary: Update User Password
+      tags:
+      - User
+  /api/v1/user/update/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Update User
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Update User
+        in: body
+        name: update
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdateUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      summary: Update User
+      tags:
+      - User
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
